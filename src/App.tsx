@@ -4,6 +4,7 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Detail from "./pages/Detail";
+import Favovites from "./pages/Favovites";
 function App() {
   const [isDark, setIsdark] = useState(false);
 
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/detail/:movieId" element={<Detail />} />
+          <Route path="/favorites" element={<Favovites />} />
         </Routes>
       </BrowserRouter>
     </div>

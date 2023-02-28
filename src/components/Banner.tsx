@@ -7,7 +7,7 @@ export default function Carosel() {
         backgroundSize : 'cover'
     }
     return (
-        <div style={bg} className='h-96 mt-5 w-full'>
+        <div style={bg} className='h-96  w-full'>
         </div>
     )
 }

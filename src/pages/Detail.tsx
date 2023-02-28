@@ -1,16 +1,21 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Navigate, useLocation } from "react-router-dom";
 import ApiHome from "../service/ApiHome";
 import { useNavigate } from "react-router-dom";
 import {SpinningCircles} from 'react-loading-icons'
 
+import Button from "../components/Button";
+
 interface detailProps {
   item?: any;
+  handleAddFav?: React.MouseEventHandler;
+  handleRemoveFav?: React.MouseEventHandler;
 }
 const img = "https://image.tmdb.org/t/p/w500";
-export const Detail: FC<detailProps> = ({ item }) => {
+export const Detail: FC<detailProps> = ({ item,handleAddFav, handleRemoveFav }) => {
   const location = useLocation();
+
   const [data, setData] = useState(item);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -19,7 +24,6 @@ export const Detail: FC<detailProps> = ({ item }) => {
     ApiHome.getMovie(location?.state.id)
       .then((res) => {
         console.log(res.data);
-        
         setLoading(true);
         setData(res.data);
       })
@@ -31,7 +35,7 @@ export const Detail: FC<detailProps> = ({ item }) => {
   }, []);
 
   return (
-    <div className="hero min-h-full bg-base-200">
+    <div className="hero min-h-full bg-base-200 ">
       
         {data && loading === true ? (
           <>
@@ -55,8 +59,11 @@ export const Detail: FC<detailProps> = ({ item }) => {
                   Watch
                 </button>
               </div>
+           
             </div>
             </div>
+
+           
           </>
         ) : (
           <h1 className="flex justify-center"><SpinningCircles /></h1>
