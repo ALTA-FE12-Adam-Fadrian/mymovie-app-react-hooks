@@ -1,5 +1,5 @@
-import React, { FC, useState, useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { FC, useState, useEffect } from "react";
+import { Link, useMatch, useNavigate, useResolvedPath, } from "react-router-dom";
 
 
 interface ModeType {
@@ -28,15 +28,15 @@ export const Navbar: FC<ModeType> = ({ handleType }) => {
     <>
       <nav className={`nav bg-teal-800 font-bold font-popins sticky top-0`}  >
         <Link to="/" className="site-title ">
-          Movie abal
+          MOVIE ALTA
         </Link>
         <ul>
-          <Link to="/">Home</Link>
-          <Link to="/nowplaying">Now Playing</Link>
-          <Link to="/favmovies">Favorite Movies</Link>
+        <CustomLink to="/">Home</CustomLink>
+          <CustomLink to="/nowplaying">Now Playing</CustomLink>
+          <CustomLink to="/favorites">Favorite Movies</CustomLink>
         </ul>
 
-        <button className="btn rounded-full" style={{width: "3rem", height: "3rem", position: "relative"}}
+        <button className="btn rounded-full flex align-middle justify-center my-auto" style={{width: "3rem", height: "3rem", position: "relative"}}
         onClick={() => navigate('/favorites')}
         >
             <svg
@@ -76,5 +76,17 @@ export const Navbar: FC<ModeType> = ({ handleType }) => {
     </>
   );
 };
-
+interface customProps {
+  to?: any
+  children: React.ReactNode
+}
+function CustomLink({ to, children, ...props }) {
+  const resolvePath = useResolvedPath(to);
+  const isActive = useMatch({ path: resolvePath.pathname, end: true });
+  return <>
+    <li className={isActive ? 'active' : '' }>
+        <Link to={to}  {...props}>{children}</Link>
+    </li>
+  </>;
+}
 export default Navbar;

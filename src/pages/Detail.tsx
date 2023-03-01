@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useContext } from "react";
+import React, { FC, useState, useEffect} from "react";
 import axios from "axios";
 import { Navigate, useLocation } from "react-router-dom";
 import ApiHome from "../service/ApiHome";
@@ -35,7 +35,7 @@ export const Detail: FC<detailProps> = ({ item,handleAddFav, handleRemoveFav }) 
   }, []);
 
   return (
-    <div className="hero min-h-full bg-base-200 ">
+    <div className="hero min-h-screen bg-base-200 ">
       
         {data && loading === true ? (
           <>

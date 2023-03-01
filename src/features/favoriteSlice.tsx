@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 export interface Item {
     title: any
     poster_path: string
-    id: number,
+    id: number | any,
     overview: string
     release_date: string
 }
@@ -23,7 +23,7 @@ export const favoriteSlice = createSlice({
         addItemToFav(state, action: PayloadAction<Item>) {
             state.items.push(action.payload)
         },
-        removeItemFromFav(state, action: PayloadAction<number>) {
+        removeItemFromFav(state, action: PayloadAction<Item|any>) {
             state.items = state.items.filter((item) => {
                 item.id !== action.payload
             })
