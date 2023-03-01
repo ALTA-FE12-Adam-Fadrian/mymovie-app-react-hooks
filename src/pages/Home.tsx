@@ -77,10 +77,13 @@ export const Home = () => {
     });
     console.log(item);
   }
+
+  //handle next page
   function nextPage() {
     setCount(count + 1);
     getAllPages(count);
   }
+  //handle previous page
   function prevPage() {
     setCount(count - 1);
     getAllPages(count);
@@ -88,6 +91,7 @@ export const Home = () => {
 
   return (
     <>
+      {/*bann */}
       <div className="flex">
         <Banner />
         {/* <Swiper

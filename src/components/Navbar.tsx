@@ -1,16 +1,14 @@
 import React, { FC, useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-
 interface ModeType {
   handleType?: React.MouseEventHandler;
 }
 
 export const Navbar: FC<ModeType> = ({ handleType }) => {
   const [theme, setTheme] = useState("light");
-
-  const navigate = useNavigate()
-  
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (theme === "dark") {
@@ -24,20 +22,52 @@ export const Navbar: FC<ModeType> = ({ handleType }) => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+    console.log(searchTerm);
+  };
+
+  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    navigate(`/search/${searchTerm}`, {
+      state: {
+        title: searchTerm,
+      },
+    });
+  };
+
   return (
     <>
-      <nav className={`nav bg-teal-800 font-bold font-popins sticky top-0`}  >
-        <Link to="/" className="site-title ">
-          MOVIE ALTA
-        </Link>
-        <ul>
-          <Link to="/">Home</Link>
-     
-          <Link to="/favorites">Favorite Movies</Link>
-        </ul>
+      <nav className={`nav bg-teal-800 font-bold font-popins sticky top-0`}>
+        <div className="flex flex-row gap-10">
+          <Link to="/" className="site-title2">
+            MOVIE ALTA
+          </Link>
+          <Link to="/" className="site-title">Home</Link>
+          <Link to="/favorites" className="site-title">Favorite Movies</Link>
 
-        
-      
+          <form
+            onSubmit={handleSearchSubmit}
+            className="flex items-center mx-4"
+          >
+            <input
+              type="text"
+              placeholder="Search movies..."
+              value={searchTerm}
+              onChange={handleSearchChange}
+              className="bg-gray-200 rounded-full px-4 py-2 w-full sm:w-64 mr-4 focus:outline-none focus:ring-2 focus:ring-slate-600"
+            />
+            <button
+              type="submit"
+              className="bg-slate-500 text-white px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-600 hover:bg-slate-700 transition-all duration-200"
+            >
+              Search
+            </button>
+          </form>
+        </div>
+
+        <ul className="text-xl"></ul>
+
         <label className="swap swap-rotate mr-10">
           <input type="checkbox" onClick={handleThemeSwitch} />
 

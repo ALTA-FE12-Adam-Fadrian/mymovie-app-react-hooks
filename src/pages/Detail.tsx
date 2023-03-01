@@ -46,7 +46,7 @@ export const Detail: FC<detailProps> = ({ item,handleAddFav, handleRemoveFav }) 
               alt="Movie"
             />
             <div className="card-body font-poppins">
-              <h2 className="card-title text-5xl font-bold">{data.title}</h2>
+              <h2 className="card-title text-5xl font-bold mb-10">{data.title}</h2>
               <h2 className="text-xl">Ratings : {data.vote_average}</h2>
               <h2 className="text-xl">Release : {data.release_date}</h2>
               <h2 className="text-xl">Description :  </h2>
