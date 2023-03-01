@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { json } from "react-router-dom"
 
 export interface Item {
     title: any
@@ -22,12 +23,14 @@ export const favoriteSlice = createSlice({
     reducers: {
         addItemToFav(state, action: PayloadAction<Item>) {
             state.items.push(action.payload)
+            localStorage.setItem('addtoFav', JSON.stringify(state.items))
+            console.log(action.payload);
         },
-        removeItemFromFav(state, action: PayloadAction<Item|any>) {
+        removeItemFromFav(state, action: PayloadAction<number|any>) {
             state.items = state.items.filter((item) => {
-                item.id !== action.payload
+              return item.id !== action.payload
             })
-        }
+          }
     }
 })
 

@@ -17,7 +17,7 @@ import { SpinningCircles } from "react-loading-icons";
 
 export const Home = () => {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [popular, setPopular] = useState([]);
   const [count, setCount] = useState(1);
@@ -29,7 +29,7 @@ export const Home = () => {
         `https://api.themoviedb.org/3/movie/now_playing?api_key=c0cf889b8d4bcdc45ffc8742122630d5&language=en-US&page=${page.toString()}`,
       )
       .then((response) => {
-        setLoading(true)
+        setLoading(true);
         setData(response.data.results);
       })
       .catch((err) => console.log(err));
@@ -43,12 +43,13 @@ export const Home = () => {
         }`,
       )
       .then((res) => {
-        setLoading(true)
+        setLoading(true);
         setPopular(res.data.results);
       })
       .catch((err) => console.log(err));
   }, []);
 
+  //handle add to favorites
   function handleAddToFav(item: any) {
     const newItem: Item = {
       id: item.id,
@@ -66,23 +67,16 @@ export const Home = () => {
     console.log(newItem);
   }
 
-  function handleRemove(item: any) {
-    const newItem: Item = {
-      id: item.id,
-      title: item.title,
-      poster_path: item.poster_path,
-      overview: item.overview,
-      release_date: item.release_date,
-    };
-    dispatch(removeItemFromFav(newItem));
+  //handle remove From favorites
+  function handleRemove(item: Item) {
+    dispatch(removeItemFromFav(item.id));
     Swal.fire({
       title: "Success",
-      text: "Successfully Remove From Favorites",
+      text: "Successfully Removed From Favorites",
       confirmButtonText: "OK",
     });
-    console.log(newItem);
+    console.log(item);
   }
-
   function nextPage() {
     setCount(count + 1);
     getAllPages(count);
@@ -125,52 +119,62 @@ export const Home = () => {
         className={`grid lg:grid-cols-4 xl:grid-cols-4 md:grid-cols-3 ml-4 xl:p-auto 2xl:grid-cols-5 md:p-5 lg:p-6 cursor-pointer h-auto"
           }`}
       >
-        {popular && loading === true ?
-        popular.map((items: any, index) => {
-          return (
-            <Card
-              key={index}
-              img={items.poster_path}
-              handleRemoveFav={() => handleRemove(items.id)}
-              handleFavList={() => handleAddToFav(items)}
-              onClick={() =>
-                navigate(`/detail/${items.id}`, {
-                  state: {
-                    id: items.id,
-                  },
-                })
-              }
-            />
-          )
-        }) :<h1 className="flex justify-center"><SpinningCircles /></h1>
-        
-        }
+        {popular && loading === true ? (
+          popular.map((items: any, index) => {
+            return (
+              <Card
+                key={index}
+                img={items.poster_path}
+                handleRemoveFav={() => handleRemove(items.id)}
+                handleFavList={() => handleAddToFav(items)}
+                onClick={() =>
+                  navigate(`/detail/${items.id}`, {
+                    state: {
+                      id: items.id,
+                    },
+                  })
+                }
+              />
+            );
+          })
+        ) : (
+          <h1 className="flex justify-center">
+            <SpinningCircles />
+          </h1>
+        )}
       </div>
 
+      {/* api for all page */}
       <div
         className={`grid lg:grid-cols-4 xl:grid-cols-4 md:grid-cols-3 ml-4 xl:p-auto 2xl:grid-cols-5 md:p-5 lg:p-6 cursor-pointer h-auto "
           }`}
       >
-        {
-        data && loading === true ?
-        data.map((items: any, index) => {
-          return (
-            <Card
-              key={index}
-              img={items.poster_path}
-              onClick={() =>
-                navigate(`/detail/${items.id}`, {
-                  state: {
-                    id: items.id,
-                  },
-                })
-              }
-            />
-          );
-        }) : <h1 className="flex justify-center"><SpinningCircles /></h1>
-        
-        }
+        {data && loading === true ? (
+          data.map((items: any, index) => {
+            return (
+              <Card
+                key={index}
+                img={items.poster_path}
+                handleRemoveFav={() => handleRemove(items.id)}
+                handleFavList={() => handleAddToFav(items)}
+                onClick={() =>
+                  navigate(`/detail/${items.id}`, {
+                    state: {
+                      id: items.id,
+                    },
+                  })
+                }
+              />
+            );
+          })
+        ) : (
+          <h1 className="flex justify-center">
+            <SpinningCircles />
+          </h1>
+        )}
       </div>
+
+      {/* button for next page */}
       <div className="btn-group flex justify-center">
         <button className="btn" onClick={() => prevPage()}>
           «
