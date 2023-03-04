@@ -16,7 +16,7 @@ const Card: FC<Props> = ({
   handleAddFav,
   handleRemoveFav,
   handleFavList,
-  title,
+
 }) => {
   return (
     <div className=" mb-10 h-auto mx-auto cursor-pointer w-full xl:w-[280px] 2xl:w-[300px] shadow-md rounded-2xl">

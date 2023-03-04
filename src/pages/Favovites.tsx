@@ -32,6 +32,11 @@ export default function Favovites() {
                   className="w-full rounded-md"
                   src={img + item.poster_path}
                   alt="Sunset in the mountains"
+                  onClick={() => navigate(`/detail/${item.id}`, {
+                    state: {
+                      id: item.id
+                    },
+                  })}
                 />
                 <div className="px-6 py-4 ">
                   <div className="font-bold text-xl mb-2 text-black dark:text-white">

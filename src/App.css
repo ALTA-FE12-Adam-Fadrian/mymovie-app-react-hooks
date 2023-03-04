@@ -6,12 +6,12 @@
   align-items: stretch;
 
 }
-.nav ul {
+/* .nav ul {
   display: flex;
   align-items: start;
   gap: 2rem;
   
-}
+} */
 nav a {
   color: white;
   display: flex;
